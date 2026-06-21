@@ -1,11 +1,36 @@
+# Python-Image als Basis
 FROM python:3.12-slim
 
-WORKDIR /workspace
+# Verhindert unnötige Python-Dateien und sorgt für direkte Ausgabe
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
+# Arbeitsverzeichnis im Container erstellen
+WORKDIR /app
+
+# Nützliche Werkzeuge installieren
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    wget \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Requirements-Datei kopieren und Abhängigkeiten installieren
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
+# Eigenen App Code in den Container kopieren
 COPY . .
 
-CMD [ "pytest" ]
+# Benutzer und Gruppe erstellen, um die App mit eingeschränkten Rechten auszuführen
+# RUN groupadd -r -g 1001 appgroup \
+#     && useradd -r -u 1001 -g appgroup -d /app -s /sbin/nologin appuser \
+#     && chown -R appuser:appgroup /app
+
+# Als normaler User und nicht als root ausführen
+# USER appuser
+
+# Standardbefehl zum Ausführen der Tests
+CMD [ "bash" ]
 
