@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     wget \
+    build-essential \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -32,5 +33,5 @@ COPY . .
 # USER appuser
 
 # Standardbefehl zum Ausführen der Tests
-CMD [ "bash" ]
+CMD [ "/bin/bash" ]
 
