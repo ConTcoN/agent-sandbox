@@ -24,13 +24,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Eigenen App Code in den Container kopieren
 COPY . .
 
-# Benutzer und Gruppe erstellen, um die App mit eingeschränkten Rechten auszuführen
-# RUN groupadd -r -g 1001 appgroup \
-#     && useradd -r -u 1001 -g appgroup -d /app -s /sbin/nologin appuser \
-#     && chown -R appuser:appgroup /app
+# Benutzer für die Entwicklung anlegen
+RUN groupadd --gid 1001 appgroup \
+    && useradd --uid 1001 --gid appgroup --create-home --shell /bin/bash appuser \
+    && chown -R appuser:appgroup /app
 
 # Als normaler User und nicht als root ausführen
-# USER appuser
+USER appuser
 
 # Standardbefehl zum Ausführen der Tests
 CMD [ "/bin/bash" ]
