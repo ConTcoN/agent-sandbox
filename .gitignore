@@ -3,6 +3,7 @@ instance/*.db
 .pytest_cache/
 *.pyc
 data/
+backups/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
