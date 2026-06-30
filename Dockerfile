@@ -34,4 +34,3 @@ USER appuser
 
 # Standardbefehl zum Ausführen der Tests
 CMD [ "/bin/bash" ]
-

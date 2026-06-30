@@ -1,0 +1,39 @@
+# Basis-Image
+FROM python:3.12-slim
+
+# Python-Verhalten
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Dokumentation: Gunicorn lauscht später auf Port 8000
+EXPOSE 8000
+
+# Arbeitsverzeichnis
+WORKDIR /app
+
+# Systempakete
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Python-Abhängigkeiten installieren
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Anwendung kopieren
+COPY . .
+
+# Benutzer und Gruppe erstellen
+RUN groupadd -r -g 1001 appgroup \
+    && useradd -r -u 1001 -g appgroup -d /app -s /usr/sbin/nologin appuser \
+    && chown -R appuser:appgroup /app
+
+# Nicht als root ausführen
+USER appuser
+
+# Entrypoint ausführbar machen
+RUN chmod +x /app/docker/entrypoint.sh
+
+# Container starten
+ENTRYPOINT ["/app/docker/entrypoint.sh"]

@@ -1,0 +1,11 @@
+.git
+.pytest_cache
+__pycache__
+.pytest_cache/
+*.pyc
+*.pyo
+*.pyd
+tests/
+.vscode/
+.devcontainer/
+instance/

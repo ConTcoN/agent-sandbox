@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.prod
+
+    ports:
+      - "8000:8000"
+
+    environment:
+      PERSONS: "Michael,Thorsten,Marc,Conrad"
+
+    volumes:
+      - ./data:/data
