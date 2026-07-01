@@ -46,7 +46,7 @@ def index():
         db.session.add(entry)
         db.session.commit()
 
-        return redirect(url_for("main.index"))
+        return redirect("./")
 
     entries=get_entries()
     summaries = get_person_summary()

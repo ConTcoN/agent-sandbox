@@ -11,8 +11,8 @@ DB_FILE="data/database.db"
 BACKUP_DIR="backups"
 
 if [ ! -f "$DB_FILE" ]; then
-    echo "Error: Database not found: $DB_FILE"
-    exit 1
+    echo "No database found. Skipping backup."
+    exit 0
 fi
 
 mkdir -p "$BACKUP_DIR"

@@ -7,6 +7,13 @@ PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 
 cd "$PROJECT_DIR"
 
+VERSION=$(cat VERSION)
+
+echo "========================================"
+echo "Hup Holland Hup App Release $VERSION"
+echo "========================================"
+echo
+
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 <backup-file>"
     exit 1
